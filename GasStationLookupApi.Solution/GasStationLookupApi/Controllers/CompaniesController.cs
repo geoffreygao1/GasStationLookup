@@ -22,9 +22,22 @@ namespace GasStationLookupApi.Controllers
 
     // GET: api/Companies
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Company>>> GetCompanies()
+    public async Task<ActionResult<IEnumerable<Company>>> GetCompanies(string name)
     {
-      return await _context.Companies.ToListAsync();
+      IQueryable<Company> query = _context.Companies.AsQueryable();
+      if (name != null)
+      {
+        query = query.Where(entry => entry.Name == name);
+      }
+
+      if (query.Count() != 0)
+      {
+        return await query.ToListAsync();
+      }
+      else
+      {
+        return NotFound();
+      }
     }
 
     // GET: api/Companies/Random

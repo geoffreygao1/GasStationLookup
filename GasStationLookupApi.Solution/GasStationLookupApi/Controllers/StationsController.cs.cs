@@ -22,9 +22,30 @@ namespace GasStationLookupApi.Controllers
 
     // GET: api/Stations
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Station>>> GetStations()
+    public async Task<ActionResult<IEnumerable<Station>>> GetStations(string address, string city, string state)
     {
-      return await _context.Stations.ToListAsync();
+      IQueryable<Station> query = _context.Stations.AsQueryable();
+      if (address != null)
+      {
+        query = query.Where(entry => entry.Address == address);
+      }
+      if (city != null)
+      {
+        query = query.Where(entry => entry.City == city);
+      }
+      if (state != null)
+      {
+        query = query.Where(entry => entry.State == state);
+      }
+
+      if (query.Count() != 0)
+      {
+        return await query.ToListAsync();
+      }
+      else
+      {
+        return NotFound();
+      }
     }
 
     // GET: api/Stations/Random
