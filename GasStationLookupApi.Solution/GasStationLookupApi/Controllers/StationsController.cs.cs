@@ -11,47 +11,47 @@ namespace GasStationLookupApi.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
-  public class CompaniesController : ControllerBase
+  public class StationsController : ControllerBase
   {
     private readonly GasStationLookupApiContext _context;
 
-    public CompaniesController(GasStationLookupApiContext context)
+    public StationsController(GasStationLookupApiContext context)
     {
       _context = context;
     }
 
-    // GET: api/Companies
+    // GET: api/Stations
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Company>>> GetCompanies()
+    public async Task<ActionResult<IEnumerable<Station>>> GetStations()
     {
-      return await _context.Companies.ToListAsync();
+      return await _context.Stations.ToListAsync();
     }
 
-    // GET: api/Companies/5
+    // GET: api/Stations/5
     [HttpGet("{id}")]
-    public async Task<ActionResult<Company>> GetCompany(int id)
+    public async Task<ActionResult<Station>> GetStation(int id)
     {
-      var company = await _context.Companies.FindAsync(id);
+      var station = await _context.Stations.FindAsync(id);
 
-      if (company == null)
+      if (station == null)
       {
         return NotFound();
       }
 
-      return company;
+      return station;
     }
 
-    // PUT: api/Companies/5
+    // PUT: api/Stations/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutCompany(int id, Company company)
+    public async Task<IActionResult> PutStation(int id, Station station)
     {
-      if (id != company.CompanyId)
+      if (id != station.StationId)
       {
         return BadRequest();
       }
 
-      _context.Entry(company).State = EntityState.Modified;
+      _context.Entry(station).State = EntityState.Modified;
 
       try
       {
@@ -59,7 +59,7 @@ namespace GasStationLookupApi.Controllers
       }
       catch (DbUpdateConcurrencyException)
       {
-        if (!CompanyExists(id))
+        if (!StationExists(id))
         {
           return NotFound();
         }
@@ -72,36 +72,36 @@ namespace GasStationLookupApi.Controllers
       return NoContent();
     }
 
-    // POST: api/Companies
+    // POST: api/Stations
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPost]
-    public async Task<ActionResult<Company>> PostCompany(Company company)
+    public async Task<ActionResult<Station>> PostStation(Station station)
     {
-      _context.Companies.Add(company);
+      _context.Stations.Add(station);
       await _context.SaveChangesAsync();
 
-      return CreatedAtAction("GetCompany", new { id = company.CompanyId }, company);
+      return CreatedAtAction("GetStation", new { id = station.StationId }, station);
     }
 
-    // DELETE: api/Companies/5
+    // DELETE: api/Stations/5
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteCompany(int id)
+    public async Task<IActionResult> DeleteStation(int id)
     {
-      var company = await _context.Companies.FindAsync(id);
-      if (company == null)
+      var station = await _context.Stations.FindAsync(id);
+      if (station == null)
       {
         return NotFound();
       }
 
-      _context.Companies.Remove(company);
+      _context.Stations.Remove(station);
       await _context.SaveChangesAsync();
 
       return NoContent();
     }
 
-    private bool CompanyExists(int id)
+    private bool StationExists(int id)
     {
-      return _context.Companies.Any(e => e.CompanyId == id);
+      return _context.Stations.Any(e => e.StationId == id);
     }
   }
 }
