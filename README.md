@@ -89,66 +89,56 @@ GET requests to `http://localhost:5000/api/companies/` can optionally include qu
 
 | Parameter   | Type        |  Required    | Description |
 | ----------- | ----------- | -----------  | ----------- |
-| species     | String      | not required | Returns animals with a matching species value |
-| name        | String      | not required | Returns animals with a matching name value |
-| minimumAge  | Number      | not required | Returns animals that have an age value that is greater than or equal to the specified minimumAge value |
+| name        | String      | not required | Returns companies with the matching name |
+| sortOrder   | String      | not required | Returns companies sorted by sortOrder |
+| x-api-version  | String   | not required | Returns response matching API verison number |
 
-The following query will return all animals with a species value of "Dinosaur":
-
-```
-GET http://localhost:5000/api/animals?species=dinosaur
-```
-
-The following query will return all animals with the name "Matilda":
+The following query will return all companies with a name value of "Shell":
 
 ```
-GET http://localhost:5000/api/animals?name=matilda
+GET https://localhost:5001/api/companies?name=Shell
 ```
 
-The following query will return all animals with an age of 10 or older:
+The following query will return all companies sorted by name:
 
 ```
-GET http://localhost:5000/api/animals?minimumAge=10
+GET https://localhost:5001/api/companies?sortOrder=name
 ```
 
 You can include multiple query strings by separating them with an `&`:
 
 ```
-GET http://localhost:5000/api/animals?species=dinosaur&minimumAge=10
+GET https://localhost:5001/api/companies?name=Shell&sortOrder=name
 ```
 
 #### Additional Requirements for POST Request
 
-When making a POST request to `http://localhost:5000/api/animals/`, you need to include a **body**. Here's an example body in JSON:
+When making a POST request to `https://localhost:5001/api/companies/`, you need to include a **body**. Here's an example body in JSON:
 
 ```json
 {
-  "species": "Tyrannosaurus Rex",
-  "name": "Elizabeth",
-  "age": 8
+  "name": "string"
 }
 ```
 
 #### Additional Requirements for PUT Request
 
-When making a PUT request to `http://localhost:5000/api/animals/{id}`, you need to include a **body** that includes the animal's `animalId` property. Here's an example body in JSON:
+When making a PUT request to `https://localhost:5001/api/companies/{id}`, you need to include a **body** that includes the animal's `companyId` property. Here's an example body in JSON:
 
 ```json
 {
-  "animalId": 1,
-  "species": "Tyrannosaurus Rex",
-  "name": "Lizzy",
-  "age": 9
+  "companyId": 1,
+  "name": "Shell"
 }
 ```
 
 And here's the PUT request we would send the previous body to:
 
 ```
-http://localhost:5000/api/animals/1
+https://localhost:5001/api/companies/1
 ```
 
-Notice that the value of `animalId` needs to match the id number in the URL. In this example, they are both 1.
+Notice that the value of `companyId` needs to match the id number in the URL. In this example, they are both 1.
 
 ## Known Bugs
 
