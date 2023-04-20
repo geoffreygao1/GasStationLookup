@@ -9,7 +9,7 @@ using GasStationLookupApi.Models;
 
 namespace GasStationLookupApi.Controllers
 {
-  [ApiVersion("1.0")]
+  // [ApiVersion("1.0")]
   [Route("api/[controller]")]
   [ApiController]
   public class CompaniesController : ControllerBase
@@ -31,17 +31,20 @@ namespace GasStationLookupApi.Controllers
         query = query.Where(entry => entry.Name == name);
       }
 
-      switch (sortOrder.ToLower())
+      if (sortOrder != null)
       {
-        case "name_desc":
-          query = query.OrderByDescending(s => s.Name);
-          break;
-        case "name":
-          query = query.OrderBy(s => s.Name);
-          break;
-        default:
-          query = query.OrderBy(s => s.CompanyId);
-          break;
+        switch (sortOrder.ToLower())
+        {
+          case "name_desc":
+            query = query.OrderByDescending(s => s.Name);
+            break;
+          case "name":
+            query = query.OrderBy(s => s.Name);
+            break;
+          default:
+            query = query.OrderBy(s => s.CompanyId);
+            break;
+        }
       }
 
       if (query.Count() != 0)

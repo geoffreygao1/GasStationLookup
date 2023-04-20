@@ -9,7 +9,7 @@ using GasStationLookupApi.Models;
 
 namespace GasStationLookupApi.Controllers
 {
-  [ApiVersion("1.0")]
+  // [ApiVersion("1.0")]
   [Route("api/[controller]")]
   [ApiController]
   public class StationsController : ControllerBase
@@ -38,24 +38,27 @@ namespace GasStationLookupApi.Controllers
       {
         query = query.Where(entry => entry.State == state);
       }
-
-      switch (sortOrder.ToLower())
+      if (sortOrder != null)
       {
-        case "city_desc":
-          query = query.OrderByDescending(s => s.City);
-          break;
-        case "city":
-          query = query.OrderBy(s => s.City);
-          break;
-        case "state_desc":
-          query = query.OrderByDescending(s => s.State);
-          break;
-        case "state":
-          query = query.OrderBy(s => s.State);
-          break;
-        default:
-          query = query.OrderBy(s => s.StationId);
-          break;
+
+        switch (sortOrder.ToLower())
+        {
+          case "city_desc":
+            query = query.OrderByDescending(s => s.City);
+            break;
+          case "city":
+            query = query.OrderBy(s => s.City);
+            break;
+          case "state_desc":
+            query = query.OrderByDescending(s => s.State);
+            break;
+          case "state":
+            query = query.OrderBy(s => s.State);
+            break;
+          default:
+            query = query.OrderBy(s => s.StationId);
+            break;
+        }
       }
 
       if (query.Count() != 0)

@@ -9,7 +9,7 @@ using GasStationLookupApi.Models;
 
 namespace GasStationLookupApi.Controllers
 {
-  [ApiVersion("1.0")]
+  // [ApiVersion("1.0")]
   [Route("api/[controller]")]
   [ApiController]
   public class GasPricesController : ControllerBase
@@ -27,35 +27,38 @@ namespace GasStationLookupApi.Controllers
     {
       IQueryable<GasPrice> query = _context.GasPrices.AsQueryable();
 
-      switch (sortOrder.ToLower())
+      if (sortOrder != null)
       {
-        case "unleaded_desc":
-          query = query.OrderByDescending(s => s.Unleaded);
-          break;
-        case "unleaded":
-          query = query.OrderBy(s => s.Unleaded);
-          break;
-        case "premium_desc":
-          query = query.OrderByDescending(s => s.Premium);
-          break;
-        case "premium":
-          query = query.OrderBy(s => s.Premium);
-          break;
-        case "diesel_desc":
-          query = query.OrderByDescending(s => s.Diesel);
-          break;
-        case "diesel":
-          query = query.OrderBy(s => s.Diesel);
-          break;
-        case "date_desc":
-          query = query.OrderByDescending(s => s.Date);
-          break;
-        case "date":
-          query = query.OrderBy(s => s.Date);
-          break;
-        default:
-          query = query.OrderBy(s => s.GasPriceId);
-          break;
+        switch (sortOrder.ToLower())
+        {
+          case "unleaded_desc":
+            query = query.OrderByDescending(s => s.Unleaded);
+            break;
+          case "unleaded":
+            query = query.OrderBy(s => s.Unleaded);
+            break;
+          case "premium_desc":
+            query = query.OrderByDescending(s => s.Premium);
+            break;
+          case "premium":
+            query = query.OrderBy(s => s.Premium);
+            break;
+          case "diesel_desc":
+            query = query.OrderByDescending(s => s.Diesel);
+            break;
+          case "diesel":
+            query = query.OrderBy(s => s.Diesel);
+            break;
+          case "date_desc":
+            query = query.OrderByDescending(s => s.Date);
+            break;
+          case "date":
+            query = query.OrderBy(s => s.Date);
+            break;
+          default:
+            query = query.OrderBy(s => s.GasPriceId);
+            break;
+        }
       }
       return await query.ToListAsync();
     }
