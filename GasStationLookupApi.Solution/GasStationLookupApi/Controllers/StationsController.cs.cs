@@ -57,6 +57,56 @@ namespace GasStationLookupApi.Controllers
       return await query.ToListAsync();
     }
 
+    // GET: api/Stations/5/AveragePrice/Unleaded
+    [HttpGet("{id}/AveragePrice/{gasType}")]
+    public async Task<ActionResult<String>> GetAverageGasPrice(int id, string gasType)
+    {
+      var station = await _context.Stations.FindAsync(id);
+
+      if (station == null)
+      {
+        return NotFound();
+      }
+
+      IQueryable<GasPrice> query = _context.GasPrices
+                          .Where(gasPrice => gasPrice.StationId == id)
+                          .AsQueryable();
+
+      float result = 0;
+      if (gasType == "Diesel")
+      {
+        foreach (GasPrice gasPrice in query)
+        {
+          result += gasPrice.Diesel;
+        }
+        float average = result / station.GasPrices.Count();
+        return average.ToString("#.##");
+      }
+      else if (gasType == "Unleaded")
+      {
+        foreach (GasPrice gasPrice in query)
+        {
+          result += gasPrice.Unleaded;
+        }
+        float average = result / station.GasPrices.Count();
+        return average.ToString("#.##");
+      }
+      else if (gasType == "Premium")
+      {
+        foreach (GasPrice gasPrice in query)
+        {
+          result += gasPrice.Premium;
+        }
+        float average = result / station.GasPrices.Count();
+        return average.ToString("#.##");
+      }
+      else
+      {
+        return NotFound();
+      }
+
+    }
+
     // PUT: api/Stations/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
