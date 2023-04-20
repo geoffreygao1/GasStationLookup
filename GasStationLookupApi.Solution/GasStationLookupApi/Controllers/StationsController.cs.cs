@@ -42,7 +42,7 @@ namespace GasStationLookupApi.Controllers
     }
 
     // GET: api/Stations/5/GasPrices
-    [HttpGet("{id}/Messages")]
+    [HttpGet("{id}/GasPrices")]
     public async Task<ActionResult<List<GasPrice>>> GetGasPricesForStation(int id)
     {
       IQueryable<GasPrice> query = _context.GasPrices

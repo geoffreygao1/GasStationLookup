@@ -6,7 +6,6 @@ namespace GasStationLookupApi.Models
 {
   public class GasPrice
   {
-    [JsonIgnore]
     public int GasPriceId { get; set; }
     [Required]
     public DateTime Date { get; set; }
