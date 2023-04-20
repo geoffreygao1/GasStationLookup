@@ -28,13 +28,12 @@ namespace GasStationLookupApi.Controllers
     }
 
     // GET: api/Companies/Random
-    [HttpGet("/Random")]
+    [HttpGet("Random")]
     public async Task<ActionResult<Company>> GetRandom()
     {
       Random rand = new Random();
       int toSkip = rand.Next(0, _context.Companies.Count());
       return await _context.Companies.OrderBy(r => Guid.NewGuid()).Skip(toSkip).Take(1).FirstAsync();
-
     }
 
     // GET: api/Companies/5

@@ -27,6 +27,14 @@ namespace GasStationLookupApi.Controllers
       return await _context.GasPrices.ToListAsync();
     }
 
+    // GET: api/GasPrices/Random
+    [HttpGet("Random")]
+    public async Task<ActionResult<GasPrice>> GetRandom()
+    {
+      Random rand = new Random();
+      int toSkip = rand.Next(0, _context.GasPrices.Count());
+      return await _context.GasPrices.OrderBy(r => Guid.NewGuid()).Skip(toSkip).Take(1).FirstAsync();
+    }
     // GET: api/GasPrices/5
     [HttpGet("{id}")]
     public async Task<ActionResult<GasPrice>> GetGasPrice(int id)
