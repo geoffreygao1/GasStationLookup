@@ -41,6 +41,22 @@ namespace GasStationLookupApi.Controllers
       return company;
     }
 
+    // GET: api/Companies/5/Stations
+    [HttpGet("{id}/Stations")]
+    public async Task<ActionResult<List<Station>>> GetStationsForCompany(int id)
+    {
+      IQueryable<Station> query = _context.Stations
+                                .Where(station => station.CompanyId == id)
+                                .AsQueryable();
+
+      if (query == null)
+      {
+        return NotFound();
+      }
+
+      return await query.ToListAsync();
+    }
+
     // PUT: api/Companies/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
