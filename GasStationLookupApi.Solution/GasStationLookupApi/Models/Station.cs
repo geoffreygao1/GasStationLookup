@@ -21,6 +21,8 @@ namespace GasStationLookupApi.Models
     public int CompanyId { get; set; }
     [JsonIgnore]
     public Company Company { get; set; }
+    [JsonIgnore]
+    public List<GasPrice> GasPrices { get; set; }
 
   }
 }
