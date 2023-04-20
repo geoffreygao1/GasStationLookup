@@ -12,6 +12,5 @@ namespace GasStationLookupApi.Models
     public string Name { get; set; }
     [JsonIgnore]
     public List<Station> Stations { get; set; }
-
   }
 }
