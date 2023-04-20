@@ -9,6 +9,7 @@ using GasStationLookupApi.Models;
 
 namespace GasStationLookupApi.Controllers
 {
+  [ApiVersion("1.0")]
   [Route("api/[controller]")]
   [ApiController]
   public class StationsController : ControllerBase
