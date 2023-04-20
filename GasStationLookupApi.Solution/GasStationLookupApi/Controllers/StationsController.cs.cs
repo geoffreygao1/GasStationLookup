@@ -41,6 +41,22 @@ namespace GasStationLookupApi.Controllers
       return station;
     }
 
+    // GET: api/Stations/5/GasPrices
+    [HttpGet("{id}/Messages")]
+    public async Task<ActionResult<List<GasPrice>>> GetGasPricesForStation(int id)
+    {
+      IQueryable<GasPrice> query = _context.GasPrices
+                                .Where(gasPrice => gasPrice.StationId == id)
+                                .AsQueryable();
+
+      if (query == null)
+      {
+        return NotFound();
+      }
+
+      return await query.ToListAsync();
+    }
+
     // PUT: api/Stations/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
