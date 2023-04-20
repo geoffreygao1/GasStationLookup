@@ -22,7 +22,7 @@ namespace GasStationLookupApi.Controllers
 
     // GET: api/Stations
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Station>>> GetStations(string address, string city, string state)
+    public async Task<ActionResult<IEnumerable<Station>>> GetStations(string address, string city, string state, string sortOrder)
     {
       IQueryable<Station> query = _context.Stations.AsQueryable();
       if (address != null)
@@ -36,6 +36,25 @@ namespace GasStationLookupApi.Controllers
       if (state != null)
       {
         query = query.Where(entry => entry.State == state);
+      }
+
+      switch (sortOrder.ToLower())
+      {
+        case "city_desc":
+          query = query.OrderByDescending(s => s.City);
+          break;
+        case "city":
+          query = query.OrderBy(s => s.City);
+          break;
+        case "state_desc":
+          query = query.OrderByDescending(s => s.State);
+          break;
+        case "state":
+          query = query.OrderBy(s => s.State);
+          break;
+        default:
+          query = query.OrderBy(s => s.StationId);
+          break;
       }
 
       if (query.Count() != 0)

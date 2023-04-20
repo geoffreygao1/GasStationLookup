@@ -22,9 +22,41 @@ namespace GasStationLookupApi.Controllers
 
     // GET: api/GasPrices
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<GasPrice>>> GetGasPricess()
+    public async Task<ActionResult<IEnumerable<GasPrice>>> GetGasPricess(string sortOrder)
     {
-      return await _context.GasPrices.ToListAsync();
+      IQueryable<GasPrice> query = _context.GasPrices.AsQueryable();
+
+      switch (sortOrder.ToLower())
+      {
+        case "unleaded_desc":
+          query = query.OrderByDescending(s => s.Unleaded);
+          break;
+        case "unleaded":
+          query = query.OrderBy(s => s.Unleaded);
+          break;
+        case "premium_desc":
+          query = query.OrderByDescending(s => s.Premium);
+          break;
+        case "premium":
+          query = query.OrderBy(s => s.Premium);
+          break;
+        case "diesel_desc":
+          query = query.OrderByDescending(s => s.Diesel);
+          break;
+        case "diesel":
+          query = query.OrderBy(s => s.Diesel);
+          break;
+        case "date_desc":
+          query = query.OrderByDescending(s => s.Date);
+          break;
+        case "date":
+          query = query.OrderBy(s => s.Date);
+          break;
+        default:
+          query = query.OrderBy(s => s.GasPriceId);
+          break;
+      }
+      return await query.ToListAsync();
     }
 
     // GET: api/GasPrices/Random
