@@ -22,12 +22,25 @@ namespace GasStationLookupApi.Controllers
 
     // GET: api/Companies
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Company>>> GetCompanies(string name)
+    public async Task<ActionResult<IEnumerable<Company>>> GetCompanies(string name, string sortOrder)
     {
       IQueryable<Company> query = _context.Companies.AsQueryable();
       if (name != null)
       {
         query = query.Where(entry => entry.Name == name);
+      }
+
+      switch (sortOrder.ToLower())
+      {
+        case "name_desc":
+          query = query.OrderByDescending(s => s.Name);
+          break;
+        case "name":
+          query = query.OrderBy(s => s.Name);
+          break;
+        default:
+          query = query.OrderBy(s => s.CompanyId);
+          break;
       }
 
       if (query.Count() != 0)
