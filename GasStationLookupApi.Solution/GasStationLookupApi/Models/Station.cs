@@ -6,7 +6,6 @@ namespace GasStationLookupApi.Models
 {
   public class Station
   {
-    [JsonIgnore]
     public int StationId { get; set; }
     [Required]
     [StringLength(200)]
