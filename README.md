@@ -81,7 +81,7 @@ PUT https://localhost:5001/api/companies/{id}
 DELETE https://localhost:5001/api/companies/{id}
 ```
 
-Note: `{id}` is a variable and it should be replaced with the id number of the animal you want to GET, PUT, or DELETE.
+Note: `{id}` is a variable and it should be replaced with the id number of the company you want to GET, PUT, or DELETE.
 
 #### Optional Query String Parameters for GET Request
 
@@ -123,7 +123,7 @@ When making a POST request to `https://localhost:5001/api/companies/`, you need 
 
 #### Additional Requirements for PUT Request
 
-When making a PUT request to `https://localhost:5001/api/companies/{id}`, you need to include a **body** that includes the animal's `companyId` property. Here's an example body in JSON:
+When making a PUT request to `https://localhost:5001/api/companies/{id}`, you need to include a **body** that includes the company's `companyId` property. Here's an example body in JSON:
 
 ```json
 {
