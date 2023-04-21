@@ -178,6 +178,26 @@ When making a POST request, you need to include a **body**. Here's an example bo
   "name": "string"
 }
 ```
+Here's an example body in JSON for the Station endpoint:
+```json
+{
+  "address": "302 West Blvd.",
+  "city": "Atlanta",
+  "state": "GA",
+  "companyId": 4
+}
+```
+
+Here's an example body in JSON for the GasPrice endpoint:
+```json
+{
+  "date": "2023-04-21T06:28:11.975Z",
+  "diesel": 1.50,
+  "unleaded": 2.00,
+  "premium": 2.50,
+  "stationId": 3
+}
+```
 
 #### Additional Requirements for PUT Request
 
@@ -198,6 +218,29 @@ https://localhost:5001/api/companies/1
 
 Notice that the value of `companyId` needs to match the id number in the URL. In this example, they are both 1.
 
+The following is an example of a PUT request for the Station endpoint in JSON:
+```json
+{
+  "stationId": 3,
+  "address": "132 East Street",
+  "city": "Portland",
+  "state": "OR",
+  "companyId": 1
+}
+```
+
+The following is an example of a PUT request for the GasStation endpoint in JSON:
+```json
+{
+  "gasPriceId": 0,
+  "date": "2023-04-21T06:27:01.202Z",
+  "diesel": 4.90,
+  "unleaded": 3.99,
+  "premium": 4.99,
+  "stationId": 2
+}
+```
+Notice that the value of the model ID needs to match the id number in the URL.
 ## Known Bugs
 
 * _N/A_
