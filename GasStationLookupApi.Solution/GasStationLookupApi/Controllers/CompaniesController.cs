@@ -93,6 +93,11 @@ namespace GasStationLookupApi.Controllers
         return NotFound();
       }
 
+      if (query.Count() == 0)
+      {
+        return NotFound();
+      }
+
       return await query.ToListAsync();
     }
 
