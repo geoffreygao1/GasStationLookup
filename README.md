@@ -48,7 +48,7 @@ dotnet tool install --global dotnet-ef --version 6.0.0
 }
 ```
 
-5. Within `appsettings.Development.json`, add the following code:
+* _Within `appsettings.Development.json`, add the following code:_
 
 ```json
 {
@@ -69,6 +69,9 @@ dotnet tool install --global dotnet-ef --version 6.0.0
 
 ## Available Endpoints
 
+Note: `{id}` is a variable and it should be replaced with the id number of the company, station, or gas price you want to GET, PUT, or DELETE.
+
+
 ### Companies
 
 ```
@@ -81,7 +84,30 @@ PUT https://localhost:5001/api/companies/{id}
 DELETE https://localhost:5001/api/companies/{id}
 ```
 
-Note: `{id}` is a variable and it should be replaced with the id number of the company you want to GET, PUT, or DELETE.
+### Stations
+
+```
+GET https://localhost:5001/api/stations/
+GET https://localhost:5001/api/stations/Random
+GET https://localhost:5001/api/stations/{id}
+GET https://localhost:5001/api/stations/{id}/gasprices
+GET https://localhost:5001/api/stations/{id}/AveragePrice/{gasType}
+POST https://localhost:5001/api/stations/
+PUT https://localhost:5001/api/stations/{id}
+DELETE https://localhost:5001/api/stations/{id}
+```
+
+### GasPrices
+
+```
+GET https://localhost:5001/api/gasprices/
+GET https://localhost:5001/api/gasprices/Random
+GET https://localhost:5001/api/gasprices/{id}
+POST https://localhost:5001/api/gasprices/
+PUT https://localhost:5001/api/gasprices/{id}
+DELETE https://localhost:5001/api/gasprices/{id}
+```
+
 
 #### Optional Query String Parameters for GET Request
 
@@ -93,27 +119,59 @@ GET requests to `http://localhost:5000/api/companies/` can optionally include qu
 | sortOrder   | String      | not required | Returns companies sorted by sortOrder |
 | x-api-version  | String   | not required | Returns response matching API verison number |
 
-The following query will return all companies with a name value of "Shell":
+GET requests to `http://localhost:5000/api/stations/` can optionally include query strings to search or sort stations.
 
-```
-GET https://localhost:5001/api/companies?name=Shell
-```
+| Parameter   | Type        |  Required    | Description |
+| ----------- | ----------- | -----------  | ----------- |
+| address        | String      | not required | Returns stations located in the search address |
+| city        | String      | not required | Returns stations located in the search city |
+| state       | String      | not required | Returns stations located in the search state |
+| sortOrder   | String      | not required | Returns stations sorted by sortOrder |
+| x-api-version  | String   | not required | Returns response matching API verison number |
 
-The following query will return all companies sorted by name:
+GET requests to `http://localhost:5000/api/gasprices/` can optionally include query strings to search or sort gas prices.
 
-```
-GET https://localhost:5001/api/companies?sortOrder=name
-```
+| Parameter   | Type        |  Required    | Description |
+| ----------- | ----------- | -----------  | ----------- |
+| sortOrder   | String      | not required | Returns gas prices sorted by sortOrder |
+| x-api-version  | String   | not required | Returns response matching API verison number |
 
-You can include multiple query strings by separating them with an `&`:
+
+You can include multiple query strings by separating them with an `&`. For example:
 
 ```
 GET https://localhost:5001/api/companies?name=Shell&sortOrder=name
 ```
 
+#### Additional GET Requests
+
+The `.../Random` request will return a random record of a model. For example:
+
+```
+GET https://localhost:5001/api/companies/Random
+```
+
+The following query will return all stations associated with a company:
+
+```
+GET https://localhost:5001/api/companies/{id}/Stations
+```
+
+The following query will return all gas prices associated with a station:
+
+```
+GET https://localhost:5001/api/stations/{id}/gasprices
+```
+
+The following query will return the average gas price for a certain gas type at a station
+```
+GET https://localhost:5001/api/stations/{id}/AveragePrice/{gasType}
+```
+
+
 #### Additional Requirements for POST Request
 
-When making a POST request to `https://localhost:5001/api/companies/`, you need to include a **body**. Here's an example body in JSON:
+When making a POST request, you need to include a **body**. Here's an example body in JSON for the Company endpoint:
 
 ```json
 {
@@ -123,7 +181,7 @@ When making a POST request to `https://localhost:5001/api/companies/`, you need 
 
 #### Additional Requirements for PUT Request
 
-When making a PUT request to `https://localhost:5001/api/companies/{id}`, you need to include a **body** that includes the company's `companyId` property. Here's an example body in JSON:
+When making a PUT request, you need to include a **body** that includes the model's Id property. Here's an example body for the Company endpoint in JSON:
 
 ```json
 {
