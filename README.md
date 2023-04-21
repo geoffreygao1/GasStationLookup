@@ -116,7 +116,7 @@ GET requests to `http://localhost:5000/api/companies/` can optionally include qu
 | Parameter   | Type        |  Required    | Description |
 | ----------- | ----------- | -----------  | ----------- |
 | name        | String      | not required | Returns companies with the matching name |
-| sortOrder   | String      | not required | Returns companies sorted by sortOrder |
+| sortOrder   | String      | not required | Returns companies sorted by sortOrder. The options are: "name" and "name_desc"|
 | x-api-version  | String   | not required | Returns response matching API verison number |
 
 GET requests to `http://localhost:5000/api/stations/` can optionally include query strings to search or sort stations.
@@ -126,14 +126,14 @@ GET requests to `http://localhost:5000/api/stations/` can optionally include que
 | address        | String      | not required | Returns stations located in the search address |
 | city        | String      | not required | Returns stations located in the search city |
 | state       | String      | not required | Returns stations located in the search state |
-| sortOrder   | String      | not required | Returns stations sorted by sortOrder |
+| sortOrder   | String      | not required | Returns stations sorted by sortOrder. The options are: "state", "state_desc", "city", and "city_desc" |
 | x-api-version  | String   | not required | Returns response matching API verison number |
 
 GET requests to `http://localhost:5000/api/gasprices/` can optionally include query strings to search or sort gas prices.
 
 | Parameter   | Type        |  Required    | Description |
 | ----------- | ----------- | -----------  | ----------- |
-| sortOrder   | String      | not required | Returns gas prices sorted by sortOrder |
+| sortOrder   | String      | not required | Returns gas prices sorted by sortOrder. The options are: "unleaded", "unleaded_desc", "premium", "premium_desc", "diesel", and "diesel_desc" |
 | x-api-version  | String   | not required | Returns response matching API verison number |
 
 
@@ -163,7 +163,7 @@ The following query will return all gas prices associated with a station:
 GET https://localhost:5001/api/stations/{id}/gasprices
 ```
 
-The following query will return the average gas price for a certain gas type at a station
+The following query will return the average gas price for a certain gas type at a station. The gas type query options are "Unleaded", "Premium", and "Diesel".
 ```
 GET https://localhost:5001/api/stations/{id}/AveragePrice/{gasType}
 ```
