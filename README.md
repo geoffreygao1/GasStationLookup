@@ -243,7 +243,7 @@ The following is an example of a PUT request for the GasStation endpoint in JSON
 Notice that the value of the model ID needs to match the id number in the URL.
 ## Known Bugs
 
-* _N/A_
+* _API Versioning and CORS not tested_
 
 ## License
 
